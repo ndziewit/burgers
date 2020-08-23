@@ -15,9 +15,17 @@ const orm = {
       cb(null, data);
     });
   },
-  
+
   insertOne: function (burgerName, cb) {
     const sqlQuery = `INSERT INTO burgers_db(burger_name) VALUES('${burgerName}')`;
+    connection.query(sqlQuery, function (err, data) {
+      if (err) cb(err, null);
+      cb(null, data);
+    });
+  },
+  
+  deleteOne: function (id, cb) {
+    const sqlQuery = `DELETE FROM burgers_db WHERE id = ${id}`;
     connection.query(sqlQuery, function (err, data) {
       if (err) cb(err, null);
       cb(null, data);
@@ -32,13 +40,6 @@ const orm = {
     });
   },
 
-  deleteOne: function (id, cb) {
-    const sqlQuery = `DELETE FROM burgers_db WHERE id = ${id}`;
-    connection.query(sqlQuery, function (err, data) {
-      if (err) cb(err, null);
-      cb(null, data);
-    });
-  },
 };
 
 module.exports = orm;
